@@ -95,10 +95,18 @@ describe("About Applying What We Have Learnt", function() {
   it("should count the ingredient occurrence (functional)", function () {
     var ingredientCount = { "{ingredient name}": 0 };
 
-    
+    _(products).chain()
+      .map(function(product){
+        return product.ingredients  //Gives an array of the ingredients arrays
+      })
+      .flatten()                    //Flattens the array of arrays into one array
+      .map(function(ingredient){
+        return ingredientCount[ingredient] = (ingredientCount[ingredient]||0) + 1;
+      })     //Adjusts the ingredientCount value for each ingredient by adding all instances of the ingreds together
+      .value();
     /* chain() together map(), flatten() and reduce() */
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
